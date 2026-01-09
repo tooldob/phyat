@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoRenamer Pro - Professional Photo Renaming Tool for Telecom Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #1a2980;
+            --secondary: #26d0ce;
+            --accent: #00b09b;
+            --light: #f8f9fa;
+            --dark: #333;
+            --gray: #6c757d;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9fbff;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            background: linear-gradient(rgba(26, 41, 128, 0.9), rgba(38, 208, 206, 0.9)), url('https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Features Section */
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Tool Demo Section */
+        .tool-demo {
+            background: var(--light);
+        }
+        
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .demo-content h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .demo-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .demo-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .demo-features i {
+            color: var(--accent);
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            background: #f8f9fa;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+        }
+        
+        .pricing-card.popular {
+            position: relative;
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+        
+        .pricing-card.popular::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .pricing-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .period {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .pricing-features i {
+            color: var(--accent);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-details {
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: white;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-form h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Customization Panel */
+        .customization-panel {
+            position: fixed;
+            top: 100px;
+            right: -300px;
+            width: 300px;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 10px 0 0 10px;
+            padding: 1.5rem;
+            z-index: 1001;
+            transition: right 0.3s ease;
+        }
+        
+        .customization-panel.open {
+            right: 0;
+        }
+        
+        .customization-toggle {
+            position: absolute;
+            left: -40px;
+            top: 20px;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .customization-panel h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .customization-option {
+            margin-bottom: 1rem;
+        }
+        
+        .customization-option label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .color-option.active {
+            border-color: var(--dark);
+        }
+        
+        /* WhatsApp & Telegram Float */
+        .float-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .float-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+        }
+        
+        .telegram-btn {
+            background: #0088cc;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .pricing-card.popular {
+                transform: none;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Customization Panel -->
+    <div class="customization-panel" id="customizationPanel">
+        <div class="customization-toggle" onclick="toggleCustomization()">
+            <i class="fas fa-palette"></i>
+        </div>
+        <h3><i class="fas fa-cog"></i> Customize Website</h3>
+        
+        <div class="customization-option">
+            <label>Primary Color</label>
+            <div class="color-picker">
+                <div class="color-option active" style="background: #1a2980;" onclick="changeColor('#1a2980')"></div>
+                <div class="color-option" style="background: #2c3e50;" onclick="changeColor('#2c3e50')"></div>
+                <div class="color-option" style="background: #27ae60;" onclick="changeColor('#27ae60')"></div>
+                <div class="color-option" style="background: #8e44ad;" onclick="changeColor('#8e44ad')"></div>
+                <div class="color-option" style="background: #e74c3c;" onclick="changeColor('#e74c3c')"></div>
+            </div>
+        </div>
+        
+        <div class="customization-option">
+            <label>Theme Style</label>
+            <select class="form-control" onchange="changeTheme(this.value)">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="blue">Blue</option>
+            </select>
+        </div>
+        
+        <div class="customization-option">
+            <label>Font Size</label>
+            <input type="range" min="14" max="20" value="16" class="form-control" oninput="changeFontSize(this.value)">
+        </div>
+        
+        <button class="btn btn-primary" onclick="saveCustomization()" style="width: 100%; margin-top: 1rem;">
+            <i class="fas fa-save"></i> Save Changes
+        </button>
+    </div>
+
+    <!-- Floating WhatsApp & Telegram Buttons -->
+    <div class="float-buttons">
+        <a href="https://wa.me/919137808959?text=Hello%20I'm%20interested%20in%20PhotoRenamer%20Pro%20for%20telecom%20projects" class="float-btn whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://t.me/shahidafridi291099" class="float-btn telegram-btn" target="_blank">
+            <i class="fab fa-telegram"></i>
+        </a>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-camera-retro"></i>
+                </div>
+                <h1>PhotoRenamer Pro</h1>
+            </div>
+            
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#demo">Tool Demo</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" onclick="toggleCustomization()"><i class="fas fa-palette"></i> Customize</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content fade-in">
+            <h2>Professional Photo Renaming for Telecom Projects</h2>
+            <p>Save hours of manual work with our smart bulk photo renaming tool for telecom projects.
+            Supports UPGRADE_ULS, New Tower, Relocation, Sector Add, 2G/4G/5G/5G SA, FDD, TDD, L900, and more.
+            Rename photos accurately and project-wise in just a few clicks.</p>
+            <div class="cta-buttons">
+                <a href="#demo" class="btn btn-primary">
+                    <i class="fas fa-play-circle"></i> Try Live Demo
+                </a>
+                <a href="#pricing" class="btn btn-secondary">
+                    <i class="fas fa-shopping-cart"></i> Buy Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Powerful Features for Telecom Projects</h2>
+                <p>Everything you need to organize your telecom project photos professionally</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>One-Click Renaming</h3>
+                    <p>Rename hundreds of project photos in seconds with intelligent pattern recognition</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Multiple Patterns</h3>
+                    <p>Supports ranges, patterns, multiple prefixes, custom names, and sequential numbering — including formats like S1_1, S3_1, S4_1–2, S5_[a–c](1–2), S7–9[a–c](1–2), S15[a–c](1–2), S16_1–4 (×3), S18_1 (×3), S20–21[a–c]_(1–2), S22_1–2, S23–26_2, and more.</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Smart Download</h3>
+                    <p>Download all renamed files in a high-quality archive for an easily allocated folder</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Processing</h3>
+                    <p>All processing happens locally in your browser - no uploads to servers</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Unlimited Files</h3>
+                    <p>No restrictions on the number of project files you can process at once</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Get instant help via WhatsApp, Telegram, or email whenever you need</p>
+                </div>
+
+                <!-- NEW: Excel Automation Feature -->
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <h3>Excel Automation</h3>
+                    <p>Seamlessly integrate with Excel workflows. Automatically rename photos based on Excel data, perfect for telecom project documentation and reports.</p>
+                </div>
+                
+                <!-- NEW: API Integration Feature -->
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>API Integration</h3>
+                    <p>Connect with other services via API. Custom automation available for bulk processing, cloud storage integration, and team collaboration tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Choose Your Plan</h2>
+                    <p>Affordable pricing for telecom professionals and project teams</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card fade-in">
+                    <div class="pricing-header">
+                        <h3>7 Days Trial</h3>
+                        <div class="price">₹25</div>
+                        <div class="period">One-time payment</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Full feature access</li>
+                        <li><i class="fas fa-check"></i> 7 days validity</li>
+                        <li><i class="fas fa-check"></i> Unlimited photos</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="buyPlan('7 Days', 25)">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
+                </div>
+                
+                <div class="pricing-card fade-in popular">
+                    <div class="pricing-header">
+                        <h3>30 Days</h3>
+                        <div class="price">₹78</div>
+                        <div class="period">One-time payment</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Full feature access</li>
+                        <li><i class="fas fa-check"></i> 30 days validity</li>
+                        <li><i class="fas fa-check"></i> Unlimited photos</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> Email updates</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="buyPlan('30 Days', 78)">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
+                </div>
+                
+                <div class="pricing-card fade-in">
+                    <div class="pricing-header">
+                        <h3>90 Days</h3>
+                        <div class="price">₹230</div>
+                        <div class="period">One-time payment</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Full feature access</li>
+                        <li><i class="fas fa-check"></i> 90 days validity</li>
+                        <li><i class="fas fa-check"></i> Unlimited photos</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> Email updates</li>
+                        <li><i class="fas fa-check"></i> Feature requests</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="buyPlan('90 Days', 230)">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
+                </div>
+                
+                <div class="pricing-card fade-in">
+                    <div class="pricing-header">
+                        <h3>1 Year</h3>
+                        <div class="price">₹599</div>
+                        <div class="period">One-time payment</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Full feature access</li>
+                        <li><i class="fas fa-check"></i> 1 year validity</li>
+                        <li><i class="fas fa-check"></i> Unlimited photos</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> Email updates</li>
+                        <li><i class="fas fa-check"></i> Feature requests</li>
+                        <li><i class="fas fa-check"></i> Team collaboration</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="buyPlan('1 Year', 599)">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </button>
+                </div>
+            </div>
+            
+            
+        </div>
+    </section>
+
+    <!-- Tool Demo Section -->
+    <section class="section tool-demo" id="demo">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Live Tool Demo</h2>
+                <p>Try our photo renaming tool right here in your browser</p>
+            </div>
+            
+            <div class="demo-container">
+                <div class="demo-content fade-in">
+                    <h3>Experience the Power</h3>
+                    <p>Click "Try Live Demo" to open the tool in a new window. You'll get a Device ID in the License section - send this to us on WhatsApp to get a temporary license key for testing.</p>
+                    
+                    <ul class="demo-features">
+                        <li><i class="fas fa-check-circle"></i> No installation required</li>
+                        <li><i class="fas fa-check-circle"></i> Works on all devices</li>
+                        <li><i class="fas fa-check-circle"></i> 100% secure - no data leaves your computer</li>
+                        <li><i class="fas fa-check-circle"></i> Support for JPG, PNG, WebP formats</li>
+                    </ul>
+                    
+                    <button class="btn btn-primary" onclick="launchToolWithInstructions()">
+                        <i class="fas fa-rocket"></i> Launch Demo Tool
+                    </button>
+                </div>
+                
+                <div class="demo-embed fade-in" id="tool-container">
+                    <div style="background: white; border-radius: 10px; padding: 20px; box-shadow: var(--shadow);">
+                        <div style="text-align: center; padding: 40px 20px;">
+                            <i class="fas fa-camera" style="font-size: 3rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">Photo Renaming Tool</h3>
+                            <p style="color: var(--gray); margin-bottom: 30px;">Click below to launch the full tool in a new window</p>
+                            <button class="btn btn-primary" onclick="launchToolWithInstructions()" style="width: 100%; max-width: 300px;">
+                                <i class="fas fa-external-link-alt"></i> Try Live Demo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3>Get In Touch</h3>
+                    <p>Have questions or need a custom solution? We're here to help you with all your photo organization needs.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4>Phone Number</h4>
+                                <p>+91 9137808959</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email Address</h4>
+                                <p>shahidafridi291099@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4>Business Hours</h4>
+                                <p>All day, 24 hr any time</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://wa.me/919137808959" class="social-link" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://t.me/shahidafridi291099" class="social-link" target="_blank">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="mailto:shahidafridi291099@gmail.com" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="tel:+919137808959" class="social-link">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form fade-in">
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" class="form-control" placeholder="Tell us about your requirements..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PhotoRenamer Pro</h4>
+                    <p>The ultimate solution for telecom project photo organization and bulk renaming needs.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#demo">Tool Demo</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">License Agreement</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +91 9137808959</li>
+                        <li><i class="fas fa-envelope"></i> shahidafridi291099@gmail.com</li>
+                        <li><i class="fas fa-telegram"></i> @shahidafridi291099</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Mumbai, India</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 PhotoRenamer Pro. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for telecom professionals worldwide</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Customization Panel Functions
+        let customizationOpen = false;
+
+        function toggleCustomization() {
+            const panel = document.getElementById('customizationPanel');
+            customizationOpen = !customizationOpen;
+            panel.classList.toggle('open');
+        }
+
+        function changeColor(color) {
+            // Update active color
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Apply color to website
+            document.documentElement.style.setProperty('--primary', color);
+            
+            // Generate darker shade for secondary
+            const darkerColor = shadeColor(color, -20);
+            document.documentElement.style.setProperty('--secondary', darkerColor);
+        }
+
+        function shadeColor(color, percent) {
+            let R = parseInt(color.substring(1,3),16);
+            let G = parseInt(color.substring(3,5),16);
+            let B = parseInt(color.substring(5,7),16);
+
+            R = parseInt(R * (100 + percent) / 100);
+            G = parseInt(G * (100 + percent) / 100);
+            B = parseInt(B * (100 + percent) / 100);
+
+            R = (R<255)?R:255;
+            G = (G<255)?G:255;
+            B = (B<255)?B:255;
+
+            const RR = ((R.toString(16).length===1)?"0"+R.toString(16):R.toString(16));
+            const GG = ((G.toString(16).length===1)?"0"+G.toString(16):G.toString(16));
+            const BB = ((B.toString(16).length===1)?"0"+B.toString(16):B.toString(16));
+
+            return "#"+RR+GG+BB;
+        }
+
+        function changeTheme(theme) {
+            const body = document.body;
+            
+            switch(theme) {
+                case 'dark':
+                    body.style.backgroundColor = '#1a1a1a';
+                    body.style.color = '#ffffff';
+                    break;
+                case 'blue':
+                    body.style.backgroundColor = '#e6f0ff';
+                    body.style.color = '#333333';
+                    break;
+                default:
+                    body.style.backgroundColor = '#f9fbff';
+                    body.style.color = '#333333';
+            }
+        }
+
+        function changeFontSize(size) {
+            document.body.style.fontSize = size + 'px';
+        }
+
+        function saveCustomization() {
+            alert('Customization saved! Your preferences will be remembered.');
+            toggleCustomization();
+        }
+
+        // Launch Tool Function with Instructions
+        function launchToolWithInstructions() {
+            const toolWindow = window.open('', 'PhotoRenamer Tool', 'width=800,height=900,scrollbars=yes');
+            toolWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>PhotoRenamer Pro - Demo Instructions</title>
+                    <style>
+                        body { margin: 0; padding: 20px; font-family: Arial; background: #f5f5f5; }
+                        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+                        h1 { color: #1a2980; text-align: center; margin-bottom: 20px; }
+                        .info-box { background: #e6f0ff; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #26d0ce; }
+                        .step { background: #f9fbff; padding: 15px; border-radius: 5px; margin: 15px 0; border: 1px solid #c2d1ff; }
+                        .step-number { background: #26d0ce; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; font-weight: bold; }
+                        .whatsapp-btn { background: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px; }
+                        .note { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 10px; border-radius: 5px; margin: 15px 0; }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>🚀 PhotoRenamer Pro - Demo Instructions</h1>
+                        
+                        <div class="info-box">
+                            <p><strong>Welcome to PhotoRenamer Pro Demo!</strong></p>
+                            <p>Follow these simple steps to try the tool:</p>
+                        </div>
+                        
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <strong>Launch the Tool</strong>
+                            <p>Click the button below to open the Photo Renaming Tool in a new window.</p>
+                            <button onclick="openTool()" style="padding: 10px 20px; background: #1a2980; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+                                Open Photo Renaming Tool
+                            </button>
+                        </div>
+                        
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <strong>Get Your Device ID</strong>
+                            <p>Once the tool opens, click on the <strong>"License"</strong> tab.</p>
+                            <p>You'll see your <strong>"Device ID"</strong> displayed.</p>
+                            <p>Click the <strong>"Copy Device ID"</strong> button to copy it to your clipboard.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <strong>Send Device ID via WhatsApp</strong>
+                            <p>Send your Device ID to us on WhatsApp to get a temporary license key:</p>
+                            <a href="https://wa.me/919137808959?text=Hello!%20I%20would%20like%20to%20try%20PhotoRenamer%20Pro.%20My%20Device%20ID%20is%3A%20" class="whatsapp-btn">
+                                <i class="fab fa-whatsapp"></i> Send Device ID via WhatsApp
+                            </a>
+                            <p style="margin-top: 10px;">Phone: +91 9137808959</p>
+                        </div>
+                        
+                        <div class="step">
+                            <span class="step-number">4</span>
+                            <strong>Activate License</strong>
+                            <p>We'll send you a license key via WhatsApp. Paste it in the License section of the tool and click "Activate License".</p>
+                        </div>
+                        
+                        <div class="step">
+                            <span class="step-number">5</span>
+                            <strong>Start Using the Tool</strong>
+                            <p>Once activated, you can use all features of the tool for a limited time.</p>
+                        </div>
+                        
+                        <div class="note">
+                            <p><strong>Note:</strong> This is a demo version. For full access, please purchase a license from our pricing page.</p>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        function openTool() {
+                            // Open the actual tool - UPDATED LINK
+                            const toolWindow = window.open('https://prt.tiiny.site/', 'PhotoRenamerTool', 'width=1200,height=800,scrollbars=yes');
+                        }
+                    <\/script>
+                </body>
+                </html>
+            `);
+        }
+
+        // Buy Plan Function
+        function buyPlan(planName, price) {
+            const message = `I would like to purchase the ${planName} plan for ₹${price}. Please send me payment details.`;
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Open WhatsApp with purchase message
+            window.open(`https://wa.me/919137808959?text=${encodedMessage}`, '_blank');
+            
+            // Also show confirmation
+            alert(`Thank you for choosing the ${planName} plan!\n\nWe've opened WhatsApp for you to complete the purchase. Please send us your Device ID along with the payment.`);
+        }
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you would typically send this to a server
+            // For demo, we'll show a success message
+            alert(`Thank you ${name}! Your message has been sent successfully.\n\nWe'll contact you at ${email} or ${phone} within 24 hours.`);
+            
+            // Reset form
+            this.reset();
+            
+            // Open WhatsApp with pre-filled message
+            const whatsappMessage = `Hello! I'm interested in PhotoRenamer Pro.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`;
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            window.open(`https://wa.me/919137808959?text=${encodedMessage}`, '_blank');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const navMenu = document.getElementById('navMenu');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Fade In Animation on Scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(element);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.querySelector('.copyright p:first-child').innerHTML = 
+                `&copy; ${new Date().getFullYear()} PhotoRenamer Pro. All rights reserved.`;
+            
+            // Load saved customization
+            const savedColor = localStorage.getItem('websiteColor');
+            if(savedColor) {
+                changeColor(savedColor);
+            }
+        });
+    </script>
+</body>
+</html>
